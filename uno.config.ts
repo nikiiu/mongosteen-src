@@ -9,6 +9,17 @@ export default defineConfig({
   shortcuts: {
   },
   safelist: [],
+  preflights: [
+    {
+      layer: 'components',
+      getCSS: () => `
+      .z-icon{
+        fill:currentColor;
+        width: 1.2em;
+        height: 1.2em;
+      }
+      `
+    }],
   presets: [
     presetUno(),
     presetAttributify(),
