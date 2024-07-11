@@ -24,7 +24,7 @@ export const Home: React.FC<Props> = (props) => {
   const isLoadingItems = !isLoadingMe && !itemsData && !itemsError
 
   if (isLoadingMe || isLoadingItems) {
-    return <Loading />
+    return <Loading className="h-screen" message='正在加载页面，请稍等' />
   }
 
   if (itemsData?.resources[0]) {
