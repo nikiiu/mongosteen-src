@@ -19,29 +19,37 @@ export default [
     method: 'get',
     response: (): Resources<Item> => {
       return {
-        resources: [
-          {
-            id: 523,
-            user_id: 275,
-            amount: 1916,
-            tag_ids: [
-              720
-            ],
-            happened_at: '2023-09-08T16:50:04.278+08:00',
-            created_at: '2023-09-13T16:50:04.280+08:00',
-            updated_at: '2023-09-13T16:50:04.280+08:00',
-            kind: 'expenses',
-            deleted_at: 'note',
-            happen_at: '2023-09-08T16:50:04.278+08:00',
-
-          },
-        ],
+        resources: [],
         pager: {
           page: 1,
           per_page: 25,
-          count: 100
+          count: 0
         }
       }
+      // return {
+      //   resources: [
+      //     {
+      //       id: 523,
+      //       user_id: 275,
+      //       amount: 1916,
+      //       tag_ids: [
+      //         720
+      //       ],
+      //       happened_at: '2023-09-08T16:50:04.278+08:00',
+      //       created_at: '2023-09-13T16:50:04.280+08:00',
+      //       updated_at: '2023-09-13T16:50:04.280+08:00',
+      //       kind: 'expenses',
+      //       deleted_at: 'note',
+      //       happen_at: '2023-09-08T16:50:04.278+08:00',
+
+      //     },
+      //   ],
+      //   pager: {
+      //     page: 1,
+      //     per_page: 25,
+      //     count: 100
+      //   }
+      // }
     },
   },
 ] as MockMethod[]
