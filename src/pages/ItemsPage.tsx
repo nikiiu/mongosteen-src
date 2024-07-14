@@ -15,36 +15,6 @@ const Div = styled.div`
 
 export const ItemsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
-  const [items] = useState<Item[]>([
-    {
-      id: 1,
-      user_id: 275,
-      amount: 1916,
-      tag_ids: [
-        720
-      ],
-      happened_at: '2023-09-08T16:50:04.278+08:00',
-      created_at: '2023-09-13T16:50:04.280+08:00',
-      updated_at: '2023-09-13T16:50:04.280+08:00',
-      kind: 'expenses',
-      deleted_at: 'note',
-      happen_at: '2023-09-08T16:50:04.278+08:00',
-    },
-    {
-      id: 2,
-      user_id: 275,
-      amount: 1916,
-      tag_ids: [
-        720
-      ],
-      happened_at: '2023-09-08T16:50:04.278+08:00',
-      created_at: '2023-09-13T16:50:04.280+08:00',
-      updated_at: '2023-09-13T16:50:04.280+08:00',
-      kind: 'expenses',
-      deleted_at: 'note',
-      happen_at: '2023-09-08T16:50:04.278+08:00',
-    }
-  ])
 
   const { visible, setVisible } = useMenuStore()
 
@@ -57,7 +27,7 @@ export const ItemsPage: React.FC = () => {
       </Div>
 
       <ItemsSummary />
-      <ItemsList items={items} />
+      <ItemsList />
       <AddItemFloatButton />
       <TopMenu onClickMask={() => setVisible(false)} visible={visible} />
     </div>
