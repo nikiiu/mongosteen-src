@@ -29,7 +29,7 @@ export const TopMenu: React.FC<Props> = ({ onClickMask, visible }) => {
     opacity: visible ? 1 : 0,
     transform: visible ? 'translateX(0%)' : 'translateX(-100%)',
   })
-  const x = {
+  const styles = {
     ...maskStyles,
     visibility: (maskVisible ? 'visible' : 'hidden') as 'visible' | 'hidden'
   }
@@ -37,7 +37,7 @@ export const TopMenu: React.FC<Props> = ({ onClickMask, visible }) => {
   return (
     <>
       <animated.div fixed top-0 left-0 w="100%" h="100%" bg="[rgba(0,0,0,0.75)]" z="[calc(var(--z-menu)-1)]"
-        onClick={onClickMask} style={x}/>
+        onClick={onClickMask} style={styles}/>
       <animated.div style={menuStyles} fixed top-0 left-0 w-70vw max-w-20em h-screen flex flex-col z="[var(--z-menu)]">
         <CurrentUser className="grow-0 shrink-0" />
         <Menu className="grow-1 shrink-1" />
