@@ -46,7 +46,7 @@ export const ItemsPage: React.FC = () => {
     }
   ])
 
-  const { visible } = useMenuStore()
+  const { visible, setVisible } = useMenuStore()
 
   return (
     <div>
@@ -60,7 +60,7 @@ export const ItemsPage: React.FC = () => {
       <ItemsList items={items} />
       <AddItemFloatButton />
       {
-        visible ? <TopMenu /> : null
+        visible ? <TopMenu onClickMask={() => setVisible(false)} /> : null
       }
 
     </div>

@@ -1,11 +1,20 @@
 import { CurrentUser } from './TopMenu/CurrentUser'
 import { Menu } from './TopMenu/Menu'
 
-export const TopMenu: React.FC = () => {
+interface Props {
+  onClickMask?: () => void
+}
+
+export const TopMenu: React.FC<Props> = ({ onClickMask }) => {
   return (
-    <div fixed top-0 left-0 w-70vw max-w-20em h-screen flex flex-col b-1 b-red>
-      <CurrentUser className="grow-0 shrink-0" />
-      <Menu className="grow-1 shrink-1" />
-    </div>
+    <>
+      <div fixed top-0 left-0 w="100%" h="100%" bg="[rgba(0,0,0,0.75)]" z="[calc(var(--z-menu)-1)]"
+        onClick={onClickMask}/>
+      <div fixed top-0 left-0 w-70vw max-w-20em h-screen flex flex-col z="[var(--z-menu)]">
+        <CurrentUser className="grow-0 shrink-0" />
+        <Menu className="grow-1 shrink-1" />
+      </div>
+    </>
+
   )
 }
