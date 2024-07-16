@@ -34,10 +34,7 @@ export const useSignInStore = create<SignIn>((set, get) => ({
   setError: (error: Partial<FormError<Data>>) => {
     set(state => ({
       ...state,
-      error: {
-        ...state.error,
-        ...error
-      }
+      error
     }))
   }
 }))
