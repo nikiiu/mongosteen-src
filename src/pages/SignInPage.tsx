@@ -1,14 +1,16 @@
 import type { FormEventHandler } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { useSignInStore } from '../stores/useSignInStore'
-import { validate } from '../lib/validate'
+import { hasError, validate } from '../lib/validate'
+import { ajax } from '../lib/ajax'
 
 export const SignInPage: React.FC = () => {
   const { data, setData, error, setError } = useSignInStore()
-
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const nav = useNavigate()
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     const error = validate(data, [
       { key: 'email', type: 'required', message: '请输入邮箱地址' },
@@ -17,6 +19,10 @@ export const SignInPage: React.FC = () => {
       { key: 'code', type: 'length', min: 6, max: 6, message: '验证码必须是6个字符' },
     ])
     setError(error)
+    if (!hasError(error)) {
+      await ajax.post('/api/v1/session', data)
+      nav('/home')
+    }
   }
 
   return (
