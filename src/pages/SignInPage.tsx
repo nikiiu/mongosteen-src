@@ -3,13 +3,20 @@ import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { useSignInStore } from '../stores/useSignInStore'
+import { validate } from '../lib/validate'
 
 export const SignInPage: React.FC = () => {
-  const { data, setData } = useSignInStore()
+  const { data, setData, error, setError } = useSignInStore()
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    console.log(data)
+    const error = validate(data, [
+      { key: 'email', type: 'required', message: '请输入邮箱地址' },
+      { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
+      { key: 'code', type: 'required', message: '请输入验证码' },
+      { key: 'code', type: 'length', min: 6, max: 6, message: '验证码必须是6个字符' },
+    ])
+    setError(error)
   }
 
   return (
@@ -23,11 +30,11 @@ export const SignInPage: React.FC = () => {
       </div>
       <form z-form onSubmit={onSubmit}>
         <div>
-          <span z-form-label>邮箱地址</span>
+          <span z-form-label>邮箱地址 {error.email?.[0] && <span text-red>{error.email[0]}</span>}</span>
           <input z-input-text value={data.email} onChange={e => setData({ email: e.target.value })} type="text" placeholder='请输入邮箱，然后点击发送验证码' />
         </div>
         <div>
-          <span z-form-label>验证码</span>
+          <span z-form-label>验证码 {error.code?.[0] && <span text-red>{error.code[0]}</span>}</span>
           <div flex gap-x-16px>
             <input z-input-text value={data.code} onChange={e => setData({ code: e.target.value })} type="text" placeholder='六位数字'/>
             <button z-btn>发送验证码</button>
