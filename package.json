@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "dev": "vite",
+    "dev": "vite --host=192.168.0.102",
     "build": "tsc && vite build --base=/react-mangosteen-1-preview/",
     "preview": "vite preview"
   },
