@@ -27,7 +27,7 @@ interface Item {
       happened_at: string,
       created_at: string,
       updated_at: string,
-      kind: 'expenses' | 'incomes',
+      kind: 'expenses' | 'income',
       deleted_at?: string,
       happen_at: string,
 
