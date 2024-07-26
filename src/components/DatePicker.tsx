@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { time } from '../lib/time'
 
 type Props = {
@@ -45,6 +45,10 @@ type ColumnProps = {
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const { items, value, itemHeight = 36, className, onChange } = props
+  useEffect(() => {
+    const index = items.indexOf(value)
+    setTranslateY(index * -itemHeight)
+  }, [value])
   const valueTime = value ? time(value) : time()
 
   const index = items.indexOf(valueTime.year)
@@ -82,7 +86,7 @@ export const Column: React.FC<ColumnProps> = (props) => {
       onChange(items[Math.abs(y / itemHeight)])
     }}
   >
-    <div border-b-1 border-t-1 b="red" absolute top="50%" w-full style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2}px)` }} />
+    <div border-b-1 border-t-1 b="#ddd" absolute top="50%" w-full style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2}px)` }} />
     <div absolute top="50%" w-full style={{ transform: `translateY(${-itemHeight / 2}px)` }}>
       <ol style={{ transform: `translateY(${translateY}px)` }}
          text-center children-flex children-items-center children-justify-center >
