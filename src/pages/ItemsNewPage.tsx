@@ -10,7 +10,7 @@ import s from './ItemsNewPage.module.scss'
 export const ItemsNewPage: React.FC = () => {
   const tabItems: { key: Item['kind']; text: string; element: React.ReactNode }[]
     = [{ key: 'expenses', text: '支出', element: <Tags kind="expenses" /> },
-      { key: 'income', text: '收入', element: <Tags kind="expenses" /> },]
+      { key: 'income', text: '收入', element: <Tags kind="income" /> },]
   const [tabItem, setTabItem] = useState<Item['kind']>('expenses')
   return (
     <div className={s.wrapper} h-screen flex flex-col>
