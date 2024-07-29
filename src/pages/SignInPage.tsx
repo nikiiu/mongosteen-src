@@ -37,10 +37,10 @@ export const SignInPage: React.FC = () => {
       </div>
       <form z-form onSubmit={onSubmit}>
         <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码'
-          value={data.email} onChange={value => setData({ email: value })}
+          value={data.email} onChange={email => setData({ email })}
           error={error.email?.[0]} />
         <Input label='验证码' type="sms_code" placeholder='六位数字' value={data.code}
-          onChange={value => setData({ code: value })}
+          onChange={code => setData({ code })}
           error={error.code?.[0]} />
         <div mt-100px>
           <button z-btn type="submit">登录</button>

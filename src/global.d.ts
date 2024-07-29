@@ -32,3 +32,14 @@ interface Item {
       happen_at: string,
 
 }
+
+interface Tag {
+  id: number
+  kind: Item['kind']
+  user_id: number
+  name: string
+  sign: string
+  deleted_at: string
+  created_at: string
+  updated_at: string
+}
