@@ -10,6 +10,7 @@ import { ItemsPage } from '../pages/ItemsPage'
 import { SignInPage } from '../pages/SignInPage'
 import { ItemsNewPage } from '../pages/ItemsNewPage'
 import { TagsNewPage } from '../pages/TagsNewPage'
+import { TagsEditPage } from '../pages/TagsEditPage'
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +33,8 @@ export const router = createBrowserRouter([
   },
   { path: '/items', element: <ItemsPage /> },
   { path: '/items/new', element: <ItemsNewPage /> },
-  { path: 'tags/new', element: <TagsNewPage /> },
+  { path: '/tags/new', element: <TagsNewPage /> },
+  { path: '/tags/:id', element: <TagsEditPage /> },
   { path: '/sign_in', element: <SignInPage /> },
   { path: '/chart', element: <div>图表</div> },
   { path: '/export', element: <div>敬请期待</div> },
