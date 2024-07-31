@@ -5,6 +5,7 @@ import type { TimeRange } from '../components/TimeRangePicker'
 import { TimeRangePicker } from '../components/TimeRangePicker'
 import { TopNav } from '../components/TopNav'
 import { LineChart } from '../components/LineChart'
+import { PieChart } from '../components/PieChart'
 
 export const StaticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
@@ -13,6 +14,12 @@ export const StaticsPage: React.FC = () => {
     { date: '2000-01-02', value: 25000 },
     { date: '2000-01-31', value: 10000 },
   ].map(item => ({ x: item.date, y: item.value / 100 }))
+
+  const items2 = [
+    { tag: '吃饭', amount: 10000 },
+    { tag: '打车', amount: 20000 },
+    { tag: '买皮肤', amount: 68800 },
+  ].map(item => ({ x: item.tag, y: item.amount / 100 }))
 
   return (
     <div>
@@ -23,6 +30,7 @@ export const StaticsPage: React.FC = () => {
 
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
       <LineChart items={items} className='h-120px' />
+      <PieChart items={items2} className='h-260px' />
 
     </div>
   )
