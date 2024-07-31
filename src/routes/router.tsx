@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
   { path: '/tags/new', element: <TagsNewPage /> },
   { path: '/tags/:id', element: <TagsEditPage /> },
   { path: '/sign_in', element: <SignInPage /> },
-  { path: '/statistic', element: <StaticsPage /> },
+  { path: '/statistics', element: <StaticsPage /> },
   { path: '/export', element: <div>敬请期待</div> },
   { path: '/tags', element: <div>标签</div> },
   { path: '/noty', element: <div>敬请期待</div> },
