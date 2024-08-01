@@ -6,6 +6,7 @@ import { TimeRangePicker } from '../components/TimeRangePicker'
 import { TopNav } from '../components/TopNav'
 import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
+import { RankChart } from '../components/RankChart'
 
 export const StaticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
@@ -16,10 +17,16 @@ export const StaticsPage: React.FC = () => {
   ].map(item => ({ x: item.date, y: item.value / 100 }))
 
   const items2 = [
-    { tag: '吃饭', amount: 10000 },
-    { tag: '打车', amount: 20000 },
-    { tag: '买皮肤', amount: 68800 },
-  ].map(item => ({ x: item.tag, y: item.amount / 100 }))
+    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
+    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
+    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
+  ].map(item => ({ x: item.tag.name, y: item.amount / 100 }))
+
+  const items3 = [
+    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
+    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
+    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
+  ].map(item => ({ name: item.tag.name, value: item.amount, sign: item.tag.sign }))
 
   return (
     <div>
@@ -31,7 +38,7 @@ export const StaticsPage: React.FC = () => {
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
       <LineChart items={items} className='h-120px' />
       <PieChart items={items2} className='h-260px' />
-
+      <RankChart items={items3} className='m-t-8px' />
     </div>
   )
 }
