@@ -37,7 +37,7 @@ export const StaticsPage: React.FC = () => {
 
       <TimeRangePicker selected={timeRange} onSelect={setTimeRange} />
       <LineChart items={items} className='h-120px' />
-      <PieChart items={items2} className='h-260px' />
+      <PieChart items={items2} className='h-260px m-t-16px' />
       <RankChart items={items3} className='m-t-8px' />
     </div>
   )
