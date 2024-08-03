@@ -10,11 +10,15 @@ export const PieChart: React.FC<Props> = (props) => {
   const { className, items } = props
 
   const div = useRef<HTMLDivElement>(null)
+  const initialized = useRef(false)
   useEffect(() => {
     if (!div.current) {
       return
     }
+  if (initialized.current) { return }
+
     const myChart = echarts.init(div.current)
+    initialized.current = true
     const option: echarts.EChartsOption = {
       tooltip: {
         trigger: 'item'

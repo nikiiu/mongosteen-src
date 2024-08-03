@@ -1,22 +1,34 @@
 import { EmojiInput } from './Input/EmojiInput'
 
 type Props = {
-  label: string | React.ReactNode
+  label?: string | React.ReactNode
   placeholder?: string
-  type?: 'text' | 'emoji' | 'sms_code'
   value?: string
   onChange?: (value: string) => void
   error?: string
-}
+  disableError?: boolean
+}& (
+  | { type: 'text' }
+  | { type: 'emoji' }
+  | { type: 'sms_code' }
+  | { type: 'select'; options: { value: string; text: string }[] }
+)
 export const Input: React.FC<Props> = (props) => {
-  const { label, error, placeholder, type = 'text', value, onChange } = props
+  const { label, error, placeholder, type, value, onChange, disableError } = props
   const renderInput = () => {
-    switch (type) {
+    switch (props.type) {
+      case undefined:
       case 'text':
         return <input z-input-text type={type} placeholder={placeholder}
           value={value} onChange={e => onChange?.(e.target.value)} />
       case 'emoji':
         return <EmojiInput value={value} onChange={value => onChange?.(value)} />
+      case 'select':
+        return <select className="h-36px" value={value} onChange={(e) => onChange?.(e.target.value)}>
+          {props.options.map(option =>
+            <option key={option.value} value={option.value}>{option.text}</option>
+            )}
+        </select>
       case 'sms_code':
         return (
           <div flex gap-x-16px>
@@ -33,9 +45,9 @@ export const Input: React.FC<Props> = (props) => {
   return (
     <>
        <div flex flex-col gap-y-8px>
-          <span text-18px>{label}</span>
+        {label ? <span text-18px>{label}</span> : null}
           {renderInput()}
-          <span text-red text-14px>{error || '　'}</span>
+           {disableError ? null : <span text-red text-12px>{error || '　'}</span>}
       </div>
     </>
   )
