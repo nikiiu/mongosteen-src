@@ -26,6 +26,19 @@ export const SignInPage: React.FC = () => {
     }
   }
 
+   const onClickCode = () => {
+    const newError = validate({ email: data.email }, [
+      { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' }
+    ])
+    setError(newError)
+    if (hasError(newError)) {
+      console.log('有错')
+    } else {
+      console.log('没错')
+      // 请求
+    }
+  }
+
   return (
     <div>
       <Gradient>
@@ -36,12 +49,12 @@ export const SignInPage: React.FC = () => {
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
       <form z-form onSubmit={onSubmit}>
-        <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码'
+        <Input label='邮箱地址' type='text' placeholder='请输入邮箱，然后点击发送验证码'
           value={data.email} onChange={email => setData({ email })}
           error={error.email?.[0]} />
         <Input label='验证码' type="sms_code" placeholder='六位数字' value={data.code}
           onChange={code => setData({ code })}
-          error={error.code?.[0]} />
+          error={error.code?.[0]} onClick={onClickCode} />
         <div mt-100px>
           <button z-btn type="submit">登录</button>
         </div>
