@@ -27,7 +27,8 @@ export const SignInPage: React.FC = () => {
   }
 
    const sendSmsCode = async () => {
-    const newError = validate({ email: data.email }, [
+     const newError = validate({ email: data.email }, [
+      { key: 'email', type: 'required', message: '邮箱地址不能为空' },
       { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' }
     ])
     setError(newError)
