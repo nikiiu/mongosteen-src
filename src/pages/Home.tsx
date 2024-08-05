@@ -33,7 +33,7 @@ export const Home: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <div flex justify-center item-center>
+      <div flex justify-center items-center>
         <img mt-20vh mb-20vh w='128px' h='130px' src={pig} alt="pig" />
       </div>
       <div px-16px>
