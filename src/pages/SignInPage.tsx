@@ -1,6 +1,7 @@
 import type { FormEventHandler } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { AxiosError } from 'axios'
+import styled from 'styled-components'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
@@ -38,7 +39,19 @@ export const SignInPage: React.FC = () => {
     }
   }
 
-  const { popup, hide, show } = usePopup({ children: <div>加载中</div>, position: 'center' })
+   const Spin = styled(Icon)`
+    animation: spin 1s linear infinite;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `
+  const { popup, hide, show } = usePopup({
+    children: <div p-16px>
+      <Spin className="w-32px h-32px" name="loading" />
+    </div>,
+    position: 'center'
+  })
 
   const sendSmsCode = async () => {
     const newError = validate({ email: data.email }, [
