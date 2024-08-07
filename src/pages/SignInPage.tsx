@@ -1,20 +1,20 @@
 import type { FormEventHandler } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { AxiosError } from 'axios'
-import styled from 'styled-components'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { useSignInStore } from '../stores/useSignInStore'
 import type { FormError } from '../lib/validate'
 import { hasError, validate } from '../lib/validate'
-import { ajax } from '../lib/ajax'
+import { useAjax } from '../lib/ajax'
 import { Input } from '../components/Input'
-import { usePopup } from '../hooks/usePopup'
 
 export const SignInPage: React.FC = () => {
   const { data, setData, error, setError } = useSignInStore()
   const nav = useNavigate()
+  const { post } = useAjax({ showLoading: true })
+  const { post: postWithoutLoading } = useAjax()
   const onSubmitError = (err: AxiosError<{ errors: FormError<typeof data> }>
   ) => {
     setError(err.response?.data?.errors ?? {})
@@ -30,7 +30,7 @@ export const SignInPage: React.FC = () => {
     ])
     setError(newError)
     if (!hasError(newError)) {
-      const response = await ajax.post<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
+      const response = await postWithoutLoading<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
         .catch(onSubmitError)
       const jwt = response.data.jwt
 
@@ -38,20 +38,6 @@ export const SignInPage: React.FC = () => {
       nav('/home')
     }
   }
-
-   const Spin = styled(Icon)`
-    animation: spin 1s linear infinite;
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  `
-  const { popup, hide, show } = usePopup({
-    children: <div p-16px>
-      <Spin className="w-32px h-32px" name="loading" />
-    </div>,
-    position: 'center'
-  })
 
   const sendSmsCode = async () => {
     const newError = validate({ email: data.email }, [
@@ -62,18 +48,15 @@ export const SignInPage: React.FC = () => {
      if (hasError(newError)) {
       throw new Error('表单出错')
     }
-      show()
       // 请求
-      const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
+      const response = await post('http://121.196.236.94:8080/api/v1/validation_codes', {
         email: data.email
-      }).finally(() => { hide() })
-      hide()
+      })
       return response
   }
 
   return (
     <div>
-      {popup}
       <Gradient>
         <TopNav title='登录' icon={<Icon name="back" className='w-24px h-24px' />} />
       </Gradient>
