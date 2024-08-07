@@ -1,9 +1,6 @@
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
-import { ajax } from '../../lib/ajax'
-
-interface Props {
-}
+import { useAjax } from '../../lib/ajax'
 
 const Div = styled.div`
   padding: 16px;
@@ -22,10 +19,11 @@ const getKey = (pageIndex: number, prev: Resources<Item>) => {
   return `/api/v1/items?page=${pageIndex + 1}`
 }
 
-export const ItemsList: React.FC<Props> = () => {
+export const ItemsList: React.FC = () => {
+  const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async (path: string) =>
-      (await ajax.get<Resources<Item>>(path)).data,
+      (await get<Resources<Item>>(path)).data,
     { revalidateFirstPage: false }
   )
 

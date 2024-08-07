@@ -14,7 +14,6 @@ export const SignInPage: React.FC = () => {
   const { data, setData, error, setError } = useSignInStore()
   const nav = useNavigate()
   const { post } = useAjax({ showLoading: true })
-  const { post: postWithoutLoading } = useAjax()
   const onSubmitError = (err: AxiosError<{ errors: FormError<typeof data> }>
   ) => {
     setError(err.response?.data?.errors ?? {})
@@ -30,7 +29,7 @@ export const SignInPage: React.FC = () => {
     ])
     setError(newError)
     if (!hasError(newError)) {
-      const response = await postWithoutLoading<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
+      const response = await post<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
         .catch(onSubmitError)
       const jwt = response.data.jwt
 
