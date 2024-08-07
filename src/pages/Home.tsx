@@ -1,6 +1,5 @@
 import useSWR from 'swr'
-import { Navigate, useNavigate } from 'react-router-dom'
-import type { AxiosError } from 'axios'
+import { Navigate } from 'react-router-dom'
 import pig from '../assets/images/pig.svg'
 import { useAjax } from '../lib/ajax'
 import { useTitle } from '../hooks/useTitle'
@@ -13,20 +12,11 @@ interface Props {
 
 export const Home: React.FC<Props> = (props) => {
   useTitle(props.title)
-  const nav = useNavigate()
-  const onHttpError = (error: AxiosError) => {
-    if (error.response) {
-      if (error.response.status === 401) {
-        nav('/sign_in')
-      }
-      }
-    throw error
-  }
 
-  const { get } = useAjax()
+  const { get } = useAjax({ showLoading: true, handleError: false })
 
   const { data: meData, error: meError } = useSWR('/api/v1/me', async path => {
-    const response = await get<Resource<User>>(path).catch(onHttpError)
+    const response = await get<Resource<User>>(path)
     return response.data.resource
   }
   )
