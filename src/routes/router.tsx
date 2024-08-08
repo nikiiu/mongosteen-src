@@ -17,6 +17,7 @@ import { TagsEditPage } from '../pages/TagsEditPage'
 import { StaticsPage } from '../pages/StatisticsPage'
 import { ItemsPageError } from '../pages/ItemsPage/ItemsPageError'
 import { ErrorEmptyData, ErrorUnauthorized } from '../error'
+import { ErrorPage } from '../pages/ErrorPage'
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +58,14 @@ export const router = createBrowserRouter([
       })
     }
   },
-  { path: '/items/new', element: <ItemsNewPage /> },
+  {
+    path: '/items/new',
+    element: <ItemsNewPage />,
+    errorElement: <ErrorPage />,
+    loader: async () =>
+      preload('/api/v1/me', (path) => axios.get<Resource<User>>(path)
+        .then(r => r.data, e => { throw new ErrorUnauthorized() }))
+  },
   { path: '/tags/new', element: <TagsNewPage /> },
   { path: '/tags/:id', element: <TagsEditPage /> },
   { path: '/sign_in', element: <SignInPage /> },
