@@ -7,7 +7,7 @@ export const ItemsPageError: React.FC = () => {
   if (e instanceof ErrorUnauthorized) {
     return <Navigate to="/sign_in" />
   } else if (e instanceof ErrorEmptyData) {
-    return <Navigate to="/home" />
+    return <Navigate to="/home" replace/>
   } else {
     return <div>出错了</div>
   }
