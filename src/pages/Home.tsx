@@ -26,7 +26,7 @@ export const Home: React.FC<Props> = (props) => {
   )
 
   const isLoadingMe = !meData && !meError
-  const isLoadingItems = !isLoadingMe && !itemsData && !itemsError
+  const isLoadingItems = meData && !itemsData && !itemsError
 
   if (isLoadingMe || isLoadingItems) {
     return <Loading className="h-screen" message='正在加载页面，请稍等' />
