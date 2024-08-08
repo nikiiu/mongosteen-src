@@ -1,5 +1,5 @@
 import type { FormEventHandler } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import type { AxiosError } from 'axios'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
@@ -19,6 +19,8 @@ export const SignInPage: React.FC = () => {
     setError(err.response?.data?.errors ?? {})
     throw error
   }
+
+  const [search] = useSearchParams()
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     const newError = validate(data, [
@@ -34,7 +36,8 @@ export const SignInPage: React.FC = () => {
       const jwt = response.data.jwt
 
       localStorage.setItem('jwt', jwt)
-      nav('/items')
+      const from = search.get('from') || '/items'
+      nav(from)
     }
   }
 
