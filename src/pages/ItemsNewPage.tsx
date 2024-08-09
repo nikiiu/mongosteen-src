@@ -4,7 +4,7 @@ import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { TopNav } from '../components/TopNav'
 import { Tags } from '../components/ItemsNewPage/Tags'
-import { DateAndAmount } from '../components/ItemsNewPage/DateAndAmount'
+import { ItemAmount } from '../components/ItemsNewPage/ItemAmount'
 import { useCreateItemStore } from '../stores/useCreateItemStore'
 import { ItemDate } from '../components/ItemsNewPage/ItemDate'
 import s from './ItemsNewPage.module.scss'
@@ -30,7 +30,9 @@ export const ItemsNewPage: React.FC = () => {
       <Tabs tabItems={tabItems} className="brow-1 shrink-1 overflow-hidden text-center"
         value={data.kind!} classPrefix='itemsNewPage'
         onChange={(kind) => { setData({ kind }) }} />
-       <DateAndAmount itemDate={<ItemDate />} className="grow-0 shrink-0" />
+      <ItemAmount itemDate={<ItemDate value={data.happen_at} onChange={(d) => setData({ happen_at: d })} />}
+        className="grow-0 shrink-0" />
+      <div>{JSON.stringify(data)}</div>
     </div>
   )
 }
