@@ -6,7 +6,8 @@
     "@typescript-eslint/brace-style": "off",
     "@typescript-eslint/indent": "off",
     "symbol-description": "off",
-     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "object-property-newline": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

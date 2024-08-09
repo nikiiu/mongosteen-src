@@ -15,7 +15,7 @@ type Rule<T> = {
 type Rules<T> = Rule<T>[]
 
 type FormError<T> = {
-  [k in keyof T]?: string[]
+  [k in keyof T]?: string[] // 可以认为是一个函数，接受一个 T,对T里的所有 k 进行遍历，得到一个数组
 }
 export type { Rules, Rule, Data, FormError }
 
