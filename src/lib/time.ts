@@ -133,7 +133,9 @@ export class Time {
     this.parts = { ms: v }
   }
   get isoString() {
-    const timezone = Math.round(-this.#date.getTimezoneOffset() / 60) 
+    // FIXME: 时区获取有问题，只能获取整数时区，如 +08:00；不能获取非整数时区，如 -07:30
+    // 如果你有时间，就解决一下吧
+    const timezone = Math.round(-this.#date.getTimezoneOffset() / 60)
     const absolute = Math.abs(timezone)
     const sign = timezone > 0 ? '+' : '-'
     const pad = absolute.toString().padStart(2, '0')
