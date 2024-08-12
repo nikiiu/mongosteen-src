@@ -20,7 +20,6 @@ const create = (attrs?: Partial<Item>): Item =>
     created_at: faker.date.past().toISOString(),
     updated_at: faker.date.past().toISOString(),
     kind: 'expenses',
-    deleted_at: 'note',
     happen_at: '2023-09-08T16:50:04.278+08:00',
     ...attrs
   })

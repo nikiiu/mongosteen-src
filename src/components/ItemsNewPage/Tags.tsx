@@ -36,7 +36,11 @@ export const
     getKey, async (path: string) =>
       (await get<Resources<Tag>>(path)).data,
     { revalidateFirstPage: false }
-  )
+    )
+
+  const onLoadMore = () => {
+    setSize(size + 1)
+  }
 
   const isLoadingInitialData = !data && !error
   const isLoadingMore = data?.[size - 1] === undefined && !error
@@ -79,7 +83,7 @@ export const
         </ol>
         {error && <Div>数据加载失败，请刷新页面</Div>}
         {!hasMore
-        ? <Div> 没有更多数据了 </Div>
+        ? <Div> 点击加号，创建新标签 </Div>
         : isLoading ? <Div>数据加载中...</Div> : <Div><button z-btn onClick={onLoadMore}>加载更多</button></Div>
         }
       </div>
