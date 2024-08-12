@@ -12,13 +12,6 @@ import { Icon } from './components/Icon'
 import { useLoadingStore } from './stores/useLoadingStore'
 vhCheck()
 export const App: React.FC = () => {
-  const Spin = styled(Icon)`
-    animation: spin 1s linear infinite;
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  `
   const { popup, hide, show } = usePopup({
     children: <div p-16px>
       <Spin className="w-32px h-32px" name="loading" />
@@ -39,3 +32,11 @@ export const App: React.FC = () => {
     </div>
   )
 }
+
+  const Spin = styled(Icon)`
+    animation: spin 1s linear infinite;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `
