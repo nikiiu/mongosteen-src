@@ -1,5 +1,3 @@
-import type { FormEventHandler } from 'react'
-import { useState } from 'react'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
@@ -13,7 +11,7 @@ import { useAjax } from '../lib/ajax'
 import s from './ItemsNewPage.module.scss'
 
 export const ItemsNewPage: React.FC = () => {
-  const { data, error, setData, setError } = useCreateItemStore()
+  const { data, setData, setError } = useCreateItemStore()
 
   const tabItems: { key: Item['kind']; text: string; element: React.ReactNode }[]
     = [{
