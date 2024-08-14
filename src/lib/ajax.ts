@@ -52,22 +52,30 @@ export const useAjax = (options?: Options) => {
 }
 
   const ajax = {
-  get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
-    return axios.get<T>(path, config).catch(onError)
-  },
-  post: <T>(path: string, data: JSONValue) => {
-    if (showLoading) { setVisible(true) }
-    return axios.post<T>(path, data).catch(onError).finally(() => {
+    get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
+      if (showLoading) { setVisible(true) }
+      return axios.get<T>(path, config).catch(onError).finally(() => {
         if (showLoading) { setVisible(false) }
       })
-  },
-  patch: <T>(path: string, data: JSONValue) => {
-    if (showLoading) { setVisible(true) }
-    return axios.patch<T>(path, data).catch(onError).finally(() => {
-      if (showLoading) { setVisible(false) }
-    })
-  },
-  delete: () => {}
+    },
+    post: <T>(path: string, data: JSONValue) => {
+      if (showLoading) { setVisible(true) }
+      return axios.post<T>(path, data).catch(onError).finally(() => {
+        if (showLoading) { setVisible(false) }
+      })
+    },
+    patch: <T>(path: string, data: JSONValue) => {
+      if (showLoading) { setVisible(true) }
+      return axios.patch<T>(path, data).catch(onError).finally(() => {
+        if (showLoading) { setVisible(false) }
+      })
+    },
+    destroy: <T>(path: string) => {
+      if (showLoading) { setVisible(true) }
+      return axios.delete<T>(path).catch(onError).finally(() => {
+        if (showLoading) { setVisible(false) }
+      })
+    },
   }
 
   return ajax
