@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { TagForm } from '../components/TagForm'
 import { TopNav } from '../components/TopNav'
 import { useAjax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 
 export const TagsEditPage: React.FC = () => {
   const confirmable = (fn: () => void) => () => {
@@ -24,7 +24,7 @@ export const TagsEditPage: React.FC = () => {
   return (
     <div>
       <Gradient className="grow-0 shrink-0">
-        <TopNav title="查看标签" icon={<Icon name="back" className='w-24px h-24px' />} />
+        <TopNav title="查看标签" icon={<BackIcon />} />
       </Gradient>
       <TagForm type='edit' />
       <div px-16px p-b-32px>

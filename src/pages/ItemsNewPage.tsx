@@ -8,6 +8,7 @@ import { useCreateItemStore } from '../stores/useCreateItemStore'
 import { ItemDate } from '../components/ItemsNewPage/ItemDate'
 import { hasError, validate } from '../lib/validate'
 import { useAjax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 import s from './ItemsNewPage.module.scss'
 
 export const ItemsNewPage: React.FC = () => {
@@ -45,7 +46,7 @@ export const ItemsNewPage: React.FC = () => {
   return (
     <div className={s.wrapper} h-screen flex flex-col>
       <Gradient className="grow-0 shrink-0">
-        <TopNav title="记一笔" icon={<Icon name="back" className='w-24px h-24px' />} />
+        <TopNav title="记一笔" icon={<BackIcon />} />
       </Gradient>
 
       <Tabs tabItems={tabItems} className="brow-1 shrink-1 overflow-hidden text-center"
