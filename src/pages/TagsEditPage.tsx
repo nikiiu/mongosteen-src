@@ -4,14 +4,9 @@ import { TagForm } from '../components/TagForm'
 import { TopNav } from '../components/TopNav'
 import { useAjax } from '../lib/ajax'
 import { BackIcon } from '../components/BackIcon'
+import { confirmable } from '../lib/confirmable'
 
 export const TagsEditPage: React.FC = () => {
-  const confirmable = (fn: () => void) => () => {
-    const result = window.confirm('确定要删除吗')
-    if (result) {
-      fn()
-    }
-  }
   const { id } = useParams()
   const { destroy } = useAjax({ showLoading: true, handleError: true })
   const nav = useNavigate()
