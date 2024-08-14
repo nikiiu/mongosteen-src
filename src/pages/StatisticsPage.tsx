@@ -30,9 +30,9 @@ export const StaticsPage: React.FC = () => {
   }
   const { start, end } = generateStartEnd()
 
-  const { data: items } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
+  const { data: items } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=happen_at`, async (path) =>
     (await (get<{ groups: Groups; total: number }>(path))).data.groups.map(({ happen_at, amount }) => ({ x: happen_at, y: amount }))
-  })
+  )
 
   const items2 = [
     { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
