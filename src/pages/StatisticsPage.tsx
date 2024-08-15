@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { Gradient } from '../components/Gradient'
 import type { TimeRange } from '../components/TimeRangePicker'
@@ -10,6 +10,7 @@ import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
+import type { Time } from '../lib/time'
 import { time } from '../lib/time'
 
 type Groups = { happen_at: string; amount: number }[]
@@ -19,22 +20,24 @@ export const StaticsPage: React.FC = () => {
   const { get } = useAjax({ showLoading: false, handleError: true })
   const [kind, setKind] = useState('expenses')
 
-  const generateStartEndAndDefaultItems = () => {
-    const defaultItems: { x: string; y: number }[] = []
+  const generateStartEnd = () => {
     if (timeRange === 'thisMonth') {
-      const startTime = time().firstDayOfMonth
-      const start = startTime.format()
-      const endTime = time().lastDayOfMonth.add(1, 'day')
-      const end = endTime.format()
-      for (let i = 0; i < startTime.dayCountOfMonth; i++) {
-        defaultItems.push({ x: startTime.clone.add(i, 'day').format(), y: 0 })
-      }
-      return { start, end, defaultItems }
+      const start = time().firstDayOfMonth
+      const end = time().lastDayOfMonth.add(1, 'day')
+
+      return { start, end }
     } else {
-      return { start: '', end: '' }
+      return { start: time(), end: time() }
     }
   }
-  const { start, end, defaultItems } = generateStartEndAndDefaultItems()
+
+  const generateDefaultItems = (start: Time) =>
+    Array.from({ length: start.dayCountOfMonth }).map((_, index) => {
+      return { x: start.clone.add(index, 'day').format(), y: 0 }
+    })
+
+  const { start, end } = generateStartEnd()
+  const defaultItems = generateDefaultItems(start)
 
   const { data: items } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=happen_at`, async (path) =>
     (await (get<{ groups: Groups; total: number }>(path))).data.groups.map(({ happen_at, amount }) => ({ x: happen_at, y: amount }))
