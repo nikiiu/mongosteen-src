@@ -54,11 +54,6 @@ export const StaticsPage: React.FC = () => {
           ({ name: tag.name, value: (amount / 100).toFixed(2), sign: tag.sign }))
   )
 
-  const items3 = [
-    { tag: { name: '吃饭', sign: '😨' }, amount: 10000 },
-    { tag: { name: '打车', sign: '🥱' }, amount: 20000 },
-    { tag: { name: '买皮肤', sign: '💖' }, amount: 68800 },
-  ].map(item => ({ name: item.tag.name, value: item.amount, sign: item.tag.sign }))
   return (
     <div>
       <Gradient>
@@ -85,7 +80,7 @@ export const StaticsPage: React.FC = () => {
       </div>
       <LineChart items={normalizedItems} className='h-120px' />
       <PieChart items={items2} className='h-260px m-t-16px' />
-      <RankChart items={items3} className='m-t-8px' />
+      <RankChart items={items2} className='m-t-8px' />
     </div>
   )
 }
