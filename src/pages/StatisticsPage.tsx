@@ -15,21 +15,33 @@ import { time } from '../lib/time'
 
 type Groups = { happen_at: string; amount: number }[]
 type Groups2 = { tag_id: number; tag: Tag; amount: number }[]
+type GetKeyParams = {
+  start: Time
+  end: Time
+  kind: Item['kind']
+  group_by: 'happen_at' | 'tag_id'
+}
+const getKey = ({ start, end, kind, group_by }: GetKeyParams) => {
+  return `/api/v1/items/summary?happened_after=${start.format('yyyy-MM-dd')}&happened_before=${end.format('yyyy-MM-dd')}&kind=${kind}&group_by=${group_by}`
+}
 
 export const StaticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const { get } = useAjax({ showLoading: false, handleError: true })
-  const [kind, setKind] = useState('expenses')
+  const [kind, setKind] = useState<Item['kind']>('expenses')
 
   const generateStartEnd = () => {
+    let start: Time
     if (timeRange === 'thisMonth') {
-      const start = time().firstDayOfMonth
-      const end = time().lastDayOfMonth.add(1, 'day')
-
-      return { start, end }
+      start = time().firstDayOfMonth
+    } else if (timeRange === 'lastMonth') {
+      start = time().add(-1, 'month').firstDayOfMonth
     } else {
-      return { start: time(), end: time() }
+      start = time()
     }
+
+    const end = start.lastDayOfMonth.add(1, 'day')
+    return { start, end }
   }
 
   const generateDefaultItems = (start: Time) =>
@@ -40,7 +52,7 @@ export const StaticsPage: React.FC = () => {
   const { start, end } = generateStartEnd()
   const defaultItems = generateDefaultItems(start)
 
-  const { data: items } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=happen_at`, async (path) =>
+  const { data: items } = useSWR(getKey({ start, end, kind, group_by: 'happen_at' }), async (path) =>
     (await (get<{ groups: Groups; total: number }>(path))).data.groups.map(({ happen_at, amount }) => ({ x: happen_at, y: (amount / 100).toFixed(2) }))
   )
 
@@ -48,7 +60,7 @@ export const StaticsPage: React.FC = () => {
      items?.find((item) => item.x === defaultItem.x) || defaultItem
   )
 
-  const { data: items2 } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=tag_id`, async (path) =>
+  const { data: items2 } = useSWR(getKey({ start, end, kind, group_by: 'tag_id' }), async (path) =>
     (await (get<{ groups: Groups2; total: number }>(path))).data.groups
         .map(({ tag, amount }) =>
           ({ name: tag.name, value: (amount / 100).toFixed(2), sign: tag.sign }))
@@ -75,7 +87,7 @@ export const StaticsPage: React.FC = () => {
           <Input type="select" options={[
             { text: '支出', value: 'expenses' },
             { text: '收入', value: 'income' },
-          ]} value={kind} onChange={value => setKind(value)} disableError/>
+          ]} value={kind} onChange={value => setKind(value as Item['kind'])} disableError/>
         </div>
       </div>
       <LineChart items={normalizedItems} className='h-120px' />
