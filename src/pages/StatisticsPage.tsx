@@ -19,19 +19,29 @@ export const StaticsPage: React.FC = () => {
   const { get } = useAjax({ showLoading: false, handleError: true })
   const [kind, setKind] = useState('expenses')
 
-  const generateStartEnd = () => {
+  const generateStartEndAndDefaultItems = () => {
+    const defaultItems: { x: string; y: number }[] = []
     if (timeRange === 'thisMonth') {
-      const start = time().firstDayOfMonth.format()
-      const end = time().lastDayOfMonth.add(1, 'day').format()
-      return { start, end }
+      const startTime = time().firstDayOfMonth
+      const start = startTime.format()
+      const endTime = time().lastDayOfMonth.add(1, 'day')
+      const end = endTime.format()
+      for (let i = 0; i < startTime.dayCountOfMonth; i++) {
+        defaultItems.push({ x: startTime.clone.add(i, 'day').format(), y: 0 })
+      }
+      return { start, end, defaultItems }
     } else {
       return { start: '', end: '' }
     }
   }
-  const { start, end } = generateStartEnd()
+  const { start, end, defaultItems } = generateStartEndAndDefaultItems()
 
   const { data: items } = useSWR(`/api/v1/items/summary?happened_after=${start}&happened_before=${end}&kind=${kind}&group_by=happen_at`, async (path) =>
     (await (get<{ groups: Groups; total: number }>(path))).data.groups.map(({ happen_at, amount }) => ({ x: happen_at, y: amount }))
+  )
+
+  const normalizedItems = defaultItems?.map((defaultItem, index) =>
+     items?.find((item) => item.x === defaultItem.x) || defaultItem
   )
 
   const items2 = [
@@ -69,7 +79,7 @@ export const StaticsPage: React.FC = () => {
           ]} value={kind} onChange={value => setKind(value)} disableError/>
         </div>
       </div>
-      <LineChart items={items} className='h-120px' />
+      <LineChart items={normalizedItems} className='h-120px' />
       <PieChart items={items2} className='h-260px m-t-16px' />
       <RankChart items={items3} className='m-t-8px' />
     </div>

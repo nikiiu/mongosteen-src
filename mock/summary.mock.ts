@@ -8,19 +8,19 @@ export const summaryMock: MockMethod[] = [{
     return {
     groups: [
       {
-        happen_at: '2018-06-20',
+        happen_at: '2024-08-15',
+        tag: null,
+        amount: 600
+      },
+      {
+        happen_at: '2024-08-16',
         tag: null,
         amount: 300
       },
       {
-        happen_at: '2018-06-19',
+        happen_at: '2024-08-17',
         tag: null,
-        amount: 300
-      },
-      {
-        happen_at: '2018-06-18',
-        tag: null,
-        amount: 300
+        amount: 200
       }
     ],
     total: 900
