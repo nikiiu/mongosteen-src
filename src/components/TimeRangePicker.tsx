@@ -61,7 +61,8 @@ export const TimeRangePicker: React.FC<Props> = (props) => {
         <button border-none bg-transparent px-16px py-8px>确认</button>
       </footer>
     </div>,
-    position: 'center'
+    position: 'center',
+    zIndex: 'var(--z-dialog)',
   })
 
   const onSelect = (timeRange: TimeRange) => {
