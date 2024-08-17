@@ -5,11 +5,12 @@ type Props = {
   placeholder?: string
   onChange?: (value: string) => void
   request?: () => Promise<unknown>
+  className?: string
 }
 
 const maxCount = 60
 export const SmsCodeInput: React.FC<Props> = (props) => {
-  const { value, placeholder, onChange, request } = props
+  const { value, placeholder, onChange, request, className } = props
   const [started, setStarted] = useState<Date>()
   const [count, setCount] = useState(maxCount)
   const timer = useRef<number>()
@@ -43,7 +44,7 @@ export const SmsCodeInput: React.FC<Props> = (props) => {
     setStarted(new Date())
   }
   return (
-    <div flex gap-x-16px>
+    <div className={className} flex gap-x-16px>
       <input shrink-1 z-input-text type="text" placeholder={placeholder} w="[calc(45%-8px)]"
         value={value} onChange={e => onChange?.(e.target.value)} />
       {started

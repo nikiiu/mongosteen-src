@@ -4,13 +4,14 @@ import { emojis } from '../../lib/emojis'
 type Props = {
   value?: string
   onChange?: (value: string) => void
+  className?: string
 }
 
 export const EmojiInput: React.FC<Props> = (props) => {
-  const { value, onChange } = props
+  const { value, onChange, className } = props
   const [emojiKind, setEmojiKind] = useState('表情')
   return (
-    <div b-1 b="#5C33BE" rounded-8px>
+    <div className={className} b-1 b="#5C33BE" rounded-8px>
       <div flex p-8px gap-x-16px overflow-auto text="#999">
         {emojis.map(emoji =>
           <span whitespace-nowrap key={emoji.name}

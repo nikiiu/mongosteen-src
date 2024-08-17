@@ -53,8 +53,8 @@ export const TimeRangePicker: React.FC<Props> = (props) => {
     children: <div onClick={onConfirm}>
       <header text-18px bg="[var(--color-purple)]" text-white py-13px p-l-16px>请选择时间</header>
       <main p-16px>
-        <Input label="开始时间" value={start} onChange={d => setStart(d)} disableError />
-        <Input label="结束时间" value={end} onChange={d => setEnd(d)} disableError />
+        <Input type="date" label="开始时间" value={start} onChange={d => setStart(d)} disableError />
+        <Input type="date" className="mt-8px" label="结束时间" value={end} onChange={d => setEnd(d)} disableError />
       </main>
       <footer text-right>
         <button border-none bg-transparent px-16px py-8px>取消</button>
