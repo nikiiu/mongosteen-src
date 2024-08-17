@@ -11,7 +11,7 @@ import { Input } from '../components/Input'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
 import type { Time } from '../lib/time'
-import { time } from '../lib/time'
+import { timeRangeToStartAndEnd } from '../lib/timeRangeToStartAndEnd'
 
 type Groups = { happen_at: string; amount: number }[]
 type Groups2 = { tag_id: number; tag: Tag; amount: number }[]
@@ -25,34 +25,17 @@ const getKey = ({ start, end, kind, group_by }: GetKeyParams) => {
   return `/api/v1/items/summary?happened_after=${start.format('yyyy-MM-dd')}&happened_before=${end.format('yyyy-MM-dd')}&kind=${kind}&group_by=${group_by}`
 }
 
-const timeRangeMap: { [k in TimeRange]: number } = {
-  thisYear: 0,
-  custom: 0,
-  thisMonth: 0,
-  lastMonth: -1,
-  twoMonthsAgo: -2,
-  threeMonthsAgo: -3,
-}
-
 export const StaticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const { get } = useAjax({ showLoading: false, handleError: true })
   const [kind, setKind] = useState<Item['kind']>('expenses')
-
-  const generateStartEnd = () => {
-    const selected: Time = time().add(timeRangeMap[timeRange], 'month')
-    const start = selected.firstDayOfMonth
-
-    const end = start.lastDayOfMonth.add(1, 'day')
-    return { start, end }
-  }
 
   const generateDefaultItems = (start: Time) =>
     Array.from({ length: start.dayCountOfMonth }).map((_, index) => {
       return { x: start.clone.add(index, 'day').format(), y: 0 }
     })
 
-  const { start, end } = generateStartEnd()
+  const { start, end } = timeRangeToStartAndEnd(timeRange)
   const defaultItems = generateDefaultItems(start)
 
   const { data: items } = useSWR(getKey({ start, end, kind, group_by: 'happen_at' }), async (path) =>
