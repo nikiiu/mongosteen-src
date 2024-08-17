@@ -10,7 +10,7 @@ import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
-import type { Time } from '../lib/time'
+import { type Time, time } from '../lib/time'
 import { timeRangeToStartAndEnd } from '../lib/timeRangeToStartAndEnd'
 
 type Groups = { happen_at: string; amount: number }[]
@@ -26,7 +26,11 @@ const getKey = ({ start, end, kind, group_by }: GetKeyParams) => {
 }
 
 export const StaticsPage: React.FC = () => {
-  const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
+  const [timeRange, setTimeRange] = useState<TimeRange>({
+    name: 'thisMonth',
+    start: time().firstDayOfMonth,
+    end: time().lastDayOfMonth.add(1, 'day')
+  })
   const { get } = useAjax({ showLoading: false, handleError: true })
   const [kind, setKind] = useState<Item['kind']>('expenses')
 
@@ -61,10 +65,22 @@ export const StaticsPage: React.FC = () => {
 
       <TimeRangePicker
         timeRanges={[
-          { key: 'thisMonth', text: '本月' },
-          { key: 'lastMonth', text: '上月' },
-          { key: 'twoMonthsAgo', text: '两个月前' },
-          { key: 'threeMonthsAgo', text: '三个月前' },
+          {
+            text: '本月',
+            key: { name: 'thisMonth', start: time().firstDayOfMonth, end: time().lastDayOfMonth.add(1, 'day') },
+          },
+          {
+            text: '上月',
+            key: { name: 'lastMonth', start: time().add(-1, 'month').firstDayOfMonth, end: time().add(-1, 'month').lastDayOfMonth.add(1, 'day') },
+          },
+          {
+            text: '两个月前',
+            key: { name: 'twoMonthsAgo', start: time().add(-2, 'month').firstDayOfMonth, end: time().add(-2, 'month').lastDayOfMonth.add(1, 'day') },
+          },
+          {
+            text: '三个月前',
+            key: { name: 'threeMonthsAgo', start: time().add(-3, 'month').firstDayOfMonth, end: time().add(-3, 'month').lastDayOfMonth.add(1, 'day') },
+          },
         ]}
         selected={timeRange} onSelect={setTimeRange} />
       <div flex p-16px items-center gap-x-16px>
