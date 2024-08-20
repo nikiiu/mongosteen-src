@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import pig from '../assets/images/pig.svg'
 import { useAjax } from '../lib/ajax'
 import { useTitle } from '../hooks/useTitle'
@@ -42,7 +42,9 @@ export const Home: React.FC<Props> = (props) => {
         <img mt-20vh mb-20vh w='128px' h='130px' src={pig} alt="pig" />
       </div>
       <div px-16px>
-        <button z-btn>开始记账</button>
+        <Link to="/items/new">
+          <button z-btn>开始记账</button>
+        </Link>
       </div>
     <AddItemFloatButton />
     </div>
