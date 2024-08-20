@@ -32,7 +32,7 @@ export const ItemsList: React.FC<Props> = (props) => {
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async (path: string) =>
       (await get<Resources<Item>>(path)).data,
-    { revalidateFirstPage: false }
+    { revalidateAll: true }
   )
 
   const onLoadMore = () => {

@@ -9,6 +9,7 @@ import { ItemDate } from '../components/ItemsNewPage/ItemDate'
 import { hasError, validate } from '../lib/validate'
 import { useAjax } from '../lib/ajax'
 import { BackIcon } from '../components/BackIcon'
+import { time } from '../lib/time'
 import s from './ItemsNewPage.module.scss'
 
 export const ItemsNewPage: React.FC = () => {
@@ -40,6 +41,7 @@ export const ItemsNewPage: React.FC = () => {
       window.alert(Object.values(error).join('\n'))
     } else {
       await post<Resource<Item>>('/api/v1/items', data)
+      setData({ amount: 0, happen_at: time().isoString, kind: 'expenses', tag_ids: [], })
       nav('/items')
     }
   }

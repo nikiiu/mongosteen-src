@@ -24,13 +24,6 @@ export const TagForm: React.FC<Props> = (props) => {
     if (type !== 'create') {
       return
     }
-    setData({ sign: '', name: '' })
-  }, [])
-
-  useEffect(() => {
-    if (type !== 'create') {
-      return
-    }
     if (!kind) { throw new Error('kind 必填') }
     if (kind !== 'expenses' && kind !== 'income') {
       throw new Error('kind 必须是 expenses 或 income')
@@ -74,6 +67,7 @@ export const TagForm: React.FC<Props> = (props) => {
         : patch<Resource<Tag>>(`/api/v1/tags/${id}`, data)
       const response = await promise.catch(onSubmitError)
       setData(response.data.resource)
+      setData({ sign: '', name: '' })
       nav(`/items/new?kind=${encodeURIComponent(kind)}`)
     }
   }
