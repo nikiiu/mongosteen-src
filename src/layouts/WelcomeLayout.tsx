@@ -9,7 +9,7 @@ const linkMap: Record<string, string> = {
   '/welcome/1': '/welcome/2',
   '/welcome/2': '/welcome/3',
   '/welcome/3': '/welcome/4',
-  '/welcome/4': '/welcome/xxx',
+  '/welcome/4': '/welcome/home',
 }
 export const WelcomeLayout: React.FC = () => {
   const animating = useRef(false)
@@ -47,7 +47,7 @@ export const WelcomeLayout: React.FC = () => {
 
   const onSkip = () => {
     setHasReadWelcomes(true)
-    nav('/welcome/xxx')
+    nav('/home')
   }
   return (
     <div className="bg-#5f34bf" h-screen flex flex-col items-stretch pb-16px>

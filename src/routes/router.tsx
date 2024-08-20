@@ -17,6 +17,7 @@ import { ItemsPageError } from '../pages/ItemsPage/ItemsPageError'
 import { ErrorEmptyData, ErrorUnauthorized } from '../error'
 import { ErrorPage } from '../pages/ErrorPage'
 import { ajax } from '../lib/ajax'
+import { ComingSoonPage } from '../components/ComingSoon'
 
 export const router = createBrowserRouter([
   {
@@ -76,9 +77,8 @@ export const router = createBrowserRouter([
       { path: '/tags/new', element: <TagsNewPage /> },
       { path: '/tags/:id', element: <TagsEditPage /> },
       { path: '/statistics', element: <StaticsPage /> },
-      { path: '/export', element: <div>敬请期待</div> },
-      { path: '/tags', element: <div>标签</div> },
-      { path: '/noty', element: <div>敬请期待</div> },
+      { path: '/export', element: <ComingSoonPage /> },
+      { path: '/noty', element: <ComingSoonPage /> },
     ]
   },
 

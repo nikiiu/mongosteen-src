@@ -8,7 +8,7 @@ export const Welcome4: React.FC = () => {
 
   const onSkip = () => {
     setHasReadWelcomes(true)
-    nav('/welcome/xxx')
+    nav('/home')
   }
   return (
     <div text-center>
