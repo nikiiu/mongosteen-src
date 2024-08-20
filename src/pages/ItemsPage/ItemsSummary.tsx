@@ -15,7 +15,7 @@ export const ItemsSummary: React.FC<Props> = (props) => {
   const { balance, expenses, income } = data ?? { balance: 0, expenses: 0, income: 0 }
 
   return (
-    <ol bg='#252A43' flex justify-between px-16px py-12px children-px-24px text-center items-center m-16px rounded-8px>
+    <ol bg='#252A43' flex justify-between px-24px py-4px children-px-24px text-center items-center m-16px rounded-8px>
       <li text="#e95b5e">
         <div>收入</div>
         <div><Money value={income} /></div>
