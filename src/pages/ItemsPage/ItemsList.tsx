@@ -1,7 +1,7 @@
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
 import { useAjax } from '../../lib/ajax'
-import type { Time } from '../../lib/time'
+import { type Time, time } from '../../lib/time'
 
 interface Props {
   start: Time
@@ -60,10 +60,10 @@ export const ItemsList: React.FC<Props> = (props) => {
           <li key={item.id} grid grid-cols="[auto_1fr_auto]" grid-rows-2 px-16px py-8px gap-x-12px
             border-b-1px b-solid b="#EEE">
             <div row-start-1 col-start-1 row-end-3 col-end-2 text-24px w-48px h-48px
-              bg="#d8d8d8" rounded="50%" flex justify-center items-center>😙</div>
-            <div row-start-1 col-start-2 row-end-2 col-end-3>旅行</div>
+              bg="#d8d8d8" rounded="50%" flex justify-center items-center>{item.tags?.[0].sign}</div>
+            <div row-start-1 col-start-2 row-end-2 col-end-3>{item.tags?.[0].name}</div>
             <div row-start-2 col-start-2 row-end-3 col-end-4 text="#999999">
-              2022年1月1日
+              {time(item.happen_at).format('yyyy-MM-dd HH:mm')}
             </div>
             <div row-start-1 col-start-3 row-end-2 col-end-4 text="#53A867">￥ {item.amount / 100}</div>
           </li>)

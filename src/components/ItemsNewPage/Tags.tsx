@@ -32,7 +32,10 @@ export const
 
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async (path: string) =>
-      (await get<Resources<Tag>>(path)).data,
+    (await get<Resources<Tag>>(path)).data,
+    {
+      revalidateAll: true
+    }
     )
 
   const onLoadMore = () => {

@@ -24,6 +24,13 @@ export const TagForm: React.FC<Props> = (props) => {
     if (type !== 'create') {
       return
     }
+    setData({ sign: '', name: '' })
+  }, [])
+
+  useEffect(() => {
+    if (type !== 'create') {
+      return
+    }
     if (!kind) { throw new Error('kind 必填') }
     if (kind !== 'expenses' && kind !== 'income') {
       throw new Error('kind 必须是 expenses 或 income')

@@ -1,5 +1,5 @@
+import { useNavigate } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { TopNav } from '../components/TopNav'
 import { Tags } from '../components/ItemsNewPage/Tags'
@@ -25,7 +25,7 @@ export const ItemsNewPage: React.FC = () => {
       }]
 
   const { post } = useAjax({ showLoading: true, handleError: true })
-
+  const nav = useNavigate()
   const onSubmit = async () => {
     const error = validate(data, [
       { key: 'kind', type: 'required', message: '请选择类型：收入或支出' },
@@ -39,8 +39,8 @@ export const ItemsNewPage: React.FC = () => {
     if (hasError(error)) {
       window.alert(Object.values(error).join('\n'))
     } else {
-      const response = await post<Resource<Item>>('/api/v1/items', data)
-      console.log(response.data.resource)
+      await post<Resource<Item>>('/api/v1/items', data)
+      nav('/items')
     }
   }
   return (
