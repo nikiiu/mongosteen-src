@@ -9,6 +9,7 @@ export default defineConfig((env) => {
   const { command } = env
   return {
     server: {
+      base: '/mongosteen-preview',
       proxy: {
         '/api/': {
           target: 'http://121.196.236.94:8080/',
