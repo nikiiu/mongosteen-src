@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import p from '../assets/images/pig.svg'
 export const Welcome1: React.FC = () => {
   return (
     <div text-center>
