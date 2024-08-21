@@ -8,8 +8,8 @@ import { svgsprites } from './vite_plugins/svgsprites'
 export default defineConfig((env) => {
   const { command } = env
   return {
+    base: './',
     server: {
-      base: '/mongosteen-preview',
       proxy: {
         '/api/': {
           target: 'http://121.196.236.94:8080/',
