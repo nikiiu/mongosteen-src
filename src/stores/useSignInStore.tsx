@@ -15,8 +15,8 @@ interface SignIn {
 
 export const useSignInStore = create<SignIn>((set, get) => ({
   data: {
-    email: '',
-    code: ''
+    email: '2543954706@qq.com',
+    code: '123456'
   },
   error: {
     email: [],
