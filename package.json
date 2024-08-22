@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "vite --host=192.168.0.102",
-    "build": "tsc && vite build --base=/mongosteen-src/",
+    "build": "tsc && vite build",
     "preview": "vite preview --host=192.168.0.102"
   },
   "dependencies": {
