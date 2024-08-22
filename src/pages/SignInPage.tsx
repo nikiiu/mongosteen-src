@@ -51,7 +51,7 @@ export const SignInPage: React.FC = () => {
       throw new Error('表单出错')
     }
       // 请求
-      const response = await post('http://121.196.236.94:8080/api/v1/validation_codes', {
+      const response = await post('/api/v1/validation_codes', {
         email: data.email
       })
       return response
