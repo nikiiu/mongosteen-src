@@ -14,7 +14,7 @@ type Props<T> = {
 }& (
   | { type?: 'text' }
   | { type: 'emoji' }
-  | { type: 'date' }
+  | { type: 'myDate' }
   | { type: 'sms_code'; request: () => Promise<unknown> }
   | { type: 'select'; options: { value: string; text: string }[] }
 )
@@ -41,7 +41,7 @@ export const Input = <T extends string>(props: Props<T>) => {
         </select>
       case 'sms_code':
         return <SmsCodeInput {...common} request={props.request} />
-      case 'date':
+      case 'myDate':
         return <DateInput {...common} />
       default:
         return null
