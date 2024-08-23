@@ -6,9 +6,9 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "dev": "vite --host=192.168.0.102",
+    "dev": "vite --host=192.168.0.103",
     "build": "tsc && vite build",
-    "preview": "vite preview --host=192.168.0.102"
+    "preview": "vite preview --host=192.168.0.103"
   },
   "dependencies": {
     "@react-spring/web": "9.5.5",

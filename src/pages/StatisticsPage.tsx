@@ -98,3 +98,4 @@ export const StaticsPage: React.FC = () => {
   )
 }
 
+export default StaticsPage
