@@ -9,6 +9,20 @@ export default defineConfig((env) => {
   const { command } = env
   return {
     base: './',
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id: any) {
+            if (id.includes('echarts')) {
+              return 'echarts'
+            }
+            if (id.includes('node_modules')) {
+              return 'vendor'
+            }
+          }
+        }
+      }
+    },
     server: {
       proxy: {
         '/api/': {
